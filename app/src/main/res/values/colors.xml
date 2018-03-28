@@ -5,6 +5,11 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="redPrimary">#CD4844</color>
-    <color name="redPrimaryDark">#CD4844</color>
+    <color name="redPrimaryDark">#a3322f</color>
     <color name="redAccent">#42f4b0</color>
+
+    <color name="redBackground">#ef726e</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000 </color>
 </resources>

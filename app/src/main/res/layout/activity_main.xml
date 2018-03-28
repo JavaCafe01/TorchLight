@@ -16,7 +16,22 @@
         <com.suke.widget.SwitchButton
             android:id="@+id/switch_light"
             android:layout_width="100dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            app:sb_button_color="@color/redPrimary"
+            app:sb_uncheck_color="@color/redPrimary"
+            app:sb_uncheckcircle_color="@color/white"
+            app:sb_background="@color/redBackground"/>
+
+        <Button
+            android:id="@+id/button_sos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/redPrimary"
+            android:onClick="flashSOS"
+            android:text="@string/sos"
+            android:textColor="@color/white" />
+
 
     </LinearLayout>
 

@@ -27,7 +27,7 @@ public class Utils {
         return Intent.createChooser(email, title);
     }
 
-    public static Intent linkIntent(String url) {
+    public static Intent webIntent(String url) {
         Intent link = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         return link;
     }

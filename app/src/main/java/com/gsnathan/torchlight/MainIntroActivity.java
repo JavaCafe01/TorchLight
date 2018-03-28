@@ -20,8 +20,8 @@ public class MainIntroActivity extends IntroActivity {
                 .title(R.string.app_name)
                 .description(R.string.description__intro)
                 .image(R.mipmap.ic_launcher)
-                .background(R.color.colorPrimary)
-                .backgroundDark(R.color.colorPrimaryDark)
+                .background(R.color.redPrimary)
+                .backgroundDark(R.color.redPrimaryDark)
                 .scrollable(false)
                 .build());
 
@@ -29,8 +29,8 @@ public class MainIntroActivity extends IntroActivity {
                 .title(R.string.title_permission)
                 .description(R.string.description__permission)
                 .image(R.drawable.permissions_pic)
-                .background(R.color.colorPrimary)
-                .backgroundDark(R.color.colorPrimaryDark)
+                .background(R.color.redPrimary)
+                .backgroundDark(R.color.redPrimaryDark)
                 .scrollable(false)
                 .permission(Manifest.permission.CAMERA)
                 .build());
