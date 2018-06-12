@@ -13,4 +13,11 @@
     <string name="action_settings">Settings/About</string>
     <string name="theme">Theme</string>
     <string name="sos">SOS</string>
+    <string name="convert">Convert to Morse Code</string>
+    <string name="convertButton">Convert</string>
+    <string name="breakButton">Break</string>
+    <string name="title_morse">Morse Code to Flash</string>
+    <string name="description__morse">This app allows you to input a message and get a morse code response through the flash.</string>
+    <string name="action_morse">Morse Flash</string>
+    <string name="action_sos">SOS</string>
 </resources>

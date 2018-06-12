@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 public class Utils {
 
+    public static String FIRST_INSTALL = "first-install";
+
     public static String getAndroidVersion() {
         String release = Build.VERSION.RELEASE;
         int sdkVersion = Build.VERSION.SDK_INT;

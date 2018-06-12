@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/redPrimary</item>
-        <item name="colorPrimaryDark">@color/redPrimary</item>
+        <item name="colorPrimaryDark">@color/redPrimaryDark</item>
         <item name="colorAccent">@color/redAccent</item>
     </style>
 

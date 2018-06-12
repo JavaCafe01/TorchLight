@@ -2,6 +2,7 @@ package com.gsnathan.torchlight;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.franmontiel.attributionpresenter.AttributionPresenter;
 import com.franmontiel.attributionpresenter.entities.Attribution;
 import com.franmontiel.attributionpresenter.entities.License;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 /**
  * Created by Gokul Swaminathan on 3/26/2018.
@@ -41,7 +44,44 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        onStartUp();
         initUI();
+    }
+
+    private void onStartUp() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = prefs.getBoolean("FIRSTINSTALLABOUT1", true);
+        if (isFirstRun) {
+            playTargets();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("FIRSTINSTALLABOUT1", false);
+            editor.commit();
+        }
+    }
+
+    private void playTargets() {
+        final TapTargetSequence aboutSequence = new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.theme_switch), "Theme", "Toggle between dark and light themes.").targetRadius(58).outerCircleColor(R.color.redPrimaryDark)
+                )
+                .listener(new TapTargetSequence.Listener() {
+
+                    @Override
+                    public void onSequenceFinish() {
+                        startActivity(Utils.navIntent(getApplicationContext(), MainActivity.class));
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        startActivity(Utils.navIntent(getApplicationContext(), MainActivity.class));
+                    }
+                });
+        aboutSequence.start();
     }
 
     private void initUI() {
@@ -121,10 +161,24 @@ public class AboutActivity extends AppCompatActivity {
                                 .build()
                 )
                 .addAttributions(
-                        new Attribution.Builder("SwitchButton")
-                                .addCopyrightNotice("Copyright 2016 https://github.com/zcweng/SwitchButton")
+                        new Attribution.Builder("StickySwitch")
+                                .addCopyrightNotice("Copyright 2017 GwonHyeok")
                                 .addLicense(License.MIT)
-                                .setWebsite("https://github.com/zcweng/SwitchButton")
+                                .setWebsite("https://github.com/GwonHyeok/StickySwitch")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("TapTargetView")
+                                .addCopyrightNotice("Copyright 2016 Keepsafe Software Inc.")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/KeepSafe/TapTargetView")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("Android-RateThisApp")
+                                .addCopyrightNotice("Copyright 2013-2017 Keisuke Kobayashi")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/kobakei/Android-RateThisApp")
                                 .build()
                 )
                 .build();
@@ -155,4 +209,10 @@ public class AboutActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(Utils.navIntent(getApplicationContext(), MainActivity.class));
+    }
+
 }

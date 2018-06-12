@@ -13,25 +13,22 @@
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical">
 
-        <com.suke.widget.SwitchButton
-            android:id="@+id/switch_light"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            app:sb_button_color="@color/redPrimary"
-            app:sb_uncheck_color="@color/redPrimary"
-            app:sb_uncheckcircle_color="@color/white"
-            app:sb_background="@color/redBackground"/>
-
-        <Button
-            android:id="@+id/button_sos"
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:id="@+id/sticky_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/redPrimary"
-            android:onClick="flashSOS"
-            android:text="@string/sos"
-            android:textColor="@color/white" />
-
+            android:layout_centerInParent="true"
+            app:ss_animationDuration="500"
+            app:ss_iconPadding="18dp"
+            app:ss_iconSize="22dp"
+            app:ss_leftIcon="@drawable/lighton_icon"
+            app:ss_leftText="Off"
+            app:ss_rightIcon="@drawable/lightoff_icon"
+            app:ss_rightText="On"
+            app:ss_selectedTextSize="14sp"
+            app:ss_switchColor="@color/redPrimary"
+            app:ss_textSize="12sp"
+            app:ss_animationType="line"/>
 
     </LinearLayout>
 

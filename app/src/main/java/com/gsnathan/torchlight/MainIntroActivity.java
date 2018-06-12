@@ -26,6 +26,15 @@ public class MainIntroActivity extends IntroActivity {
                 .build());
 
         addSlide(new SimpleSlide.Builder()
+                .title(R.string.title_morse)
+                .description(R.string.description__morse)
+                .image(R.drawable.morse_pic)
+                .background(R.color.redPrimary)
+                .backgroundDark(R.color.redPrimaryDark)
+                .scrollable(false)
+                .build());
+
+        addSlide(new SimpleSlide.Builder()
                 .title(R.string.title_permission)
                 .description(R.string.description__permission)
                 .image(R.drawable.permissions_pic)
