@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void onStartUp() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstRun = prefs.getBoolean("FIRSTINSTALL1", true);
+        boolean isFirstRun = prefs.getBoolean(Utils.FIRST_INSTALL, true);
         if (isFirstRun) {
             startActivity(new Intent(this, MainIntroActivity.class));
             playTargets();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("FIRSTINSTALL1", false);
+            editor.putBoolean(Utils.FIRST_INSTALL, false);
             editor.commit();
         }
 

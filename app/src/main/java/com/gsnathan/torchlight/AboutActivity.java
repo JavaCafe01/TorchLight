@@ -50,11 +50,11 @@ public class AboutActivity extends AppCompatActivity {
 
     private void onStartUp() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstRun = prefs.getBoolean("FIRSTINSTALLABOUT1", true);
+        boolean isFirstRun = prefs.getBoolean(Utils.FIRST_INSTALL3, true);
         if (isFirstRun) {
             playTargets();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("FIRSTINSTALLABOUT1", false);
+            editor.putBoolean(Utils.FIRST_INSTALL3, false);
             editor.commit();
         }
     }

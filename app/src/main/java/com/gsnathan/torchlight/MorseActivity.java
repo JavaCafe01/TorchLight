@@ -49,11 +49,11 @@ public class MorseActivity extends AppCompatActivity {
 
     private void onStartUp() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstRun = prefs.getBoolean("FIRSTINSTALLMORSE1", true);
+        boolean isFirstRun = prefs.getBoolean(Utils.FIRST_INSTALL2, true);
         if (isFirstRun) {
             playTargets();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("FIRSTINSTALLMORSE1", false);
+            editor.putBoolean(Utils.FIRST_INSTALL2, false);
             editor.commit();
         }
         cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
