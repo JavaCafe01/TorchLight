@@ -1,8 +1,11 @@
 package com.gsnathan.torchlight;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
+import android.os.Handler;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -40,6 +43,108 @@ public class FlashLight {
             //mark button
         } catch (Exception e) {
             Utils.showToast("Cannot turn flashlight on", Toast.LENGTH_LONG, context);
+        }
+    }
+
+    public void morseToFlash(String morse, final Button button, final Activity act) {
+        Handler handler = new Handler();
+        int delay = 0;
+
+        for (int x = 0; x < morse.length(); x++) {
+
+            if (morse.charAt(x) == '.') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOn();
+                        button.setTextColor( act.getColor(R.color.redAccent));
+                    }
+                }, (delay += 200));
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOff();
+                        button.setTextColor( act.getColor(R.color.white));
+                    }
+                }, (delay += 200));
+
+            } else if (morse.charAt(x) == '-') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOn();
+                        button.setTextColor( act.getColor(R.color.redPrimaryDark));
+                    }
+                }, (delay += 500));
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOff();
+                        button.setTextColor( act.getColor(R.color.white));
+                    }
+                }, (delay += 500));
+
+            } else if (morse.charAt(x) == ' ') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                    }
+                }, (delay += 300));
+
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                    }
+                }, (delay += 300));
+            }
+        }
+    }
+
+    public void morseToFlash(String morse) {
+        Handler handler = new Handler();
+        int delay = 0;
+
+        for (int x = 0; x < morse.length(); x++) {
+
+            if (morse.charAt(x) == '.') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOn();
+                    }
+                }, (delay += 200));
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOff();
+                    }
+                }, (delay += 200));
+
+            } else if (morse.charAt(x) == '-') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOn();
+                    }
+                }, (delay += 500));
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        flashLightOff();
+                    }
+                }, (delay += 500));
+
+            } else if (morse.charAt(x) == ' ') {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                    }
+                }, (delay += 300));
+
+
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                    }
+                }, (delay += 300));
+            }
         }
     }
 }

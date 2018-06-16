@@ -1,9 +1,9 @@
 package com.gsnathan.torchlight;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -13,22 +13,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static android.content.Context.MODE_PRIVATE;
 
 public class MorseFragment extends Fragment {
 
+    private boolean useDarkTheme;
     private Button morseButton;
     private EditText editMorse;
     private TextView viewMorse;
     private CameraManager cameraManager;
     private FlashLight torch;
     private View view;
+    private int theme;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        changeTheme();
+
         // create ContextThemeWrapper from the original Activity Context with the custom theme
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), theme);
 
         // clone the inflater using the ContextThemeWrapper
         LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
@@ -39,6 +44,18 @@ public class MorseFragment extends Fragment {
         initWidgets();
 
         return view;
+    }
+
+    private void changeTheme()
+    {
+        SharedPreferences pref = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+        useDarkTheme = pref.getBoolean("dark_theme", false);
+
+        if (useDarkTheme) {
+            theme = R.style.DarkTheme;
+        } else {
+            theme = R.style.AppTheme;
+        }
     }
 
     private void onStartUp() {
@@ -60,60 +77,7 @@ public class MorseFragment extends Fragment {
 
     public void flashText() {
         String text = editMorse.getText().toString();
-        morseToFlash(MorseCode.decodeEnglish(text), morseButton);
+        torch.morseToFlash(MorseCode.decodeEnglish(text), morseButton, getActivity());
         viewMorse.setText(MorseCode.decodeEnglish(text));
-    }
-
-    private void morseToFlash(String morse, final Button button) {
-        Handler handler = new Handler();
-        int delay = 0;
-
-        for (int x = 0; x < morse.length(); x++) {
-
-            if (morse.charAt(x) == '.') {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        torch.flashLightOn();
-                        button.setTextColor( getActivity().getColor(R.color.redAccent));
-                    }
-                }, (delay += 200));
-
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        torch.flashLightOff();
-                        button.setTextColor( getActivity().getColor(R.color.white));
-                    }
-                }, (delay += 200));
-
-            } else if (morse.charAt(x) == '-') {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        torch.flashLightOn();
-                        button.setTextColor( getActivity().getColor(R.color.redPrimaryDark));
-                    }
-                }, (delay += 500));
-
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        torch.flashLightOff();
-                        button.setTextColor( getActivity().getColor(R.color.white));
-                    }
-                }, (delay += 500));
-
-            } else if (morse.charAt(x) == ' ') {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-
-                    }
-                }, (delay += 300));
-
-
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-
-                    }
-                }, (delay += 300));
-            }
-        }
     }
 }

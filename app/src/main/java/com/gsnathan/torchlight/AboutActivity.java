@@ -2,8 +2,6 @@ package com.gsnathan.torchlight;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +20,9 @@ import com.franmontiel.attributionpresenter.entities.License;
 
 public class AboutActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
+    public boolean useDarkTheme;
 
     TextView versionView;   //shows the version
     private final String APP_VERSION_RELEASE = "Version " + Utils.getAppVersion();   //contains Version + the version number
@@ -29,10 +30,22 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        changeTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
         initUI();
+    }
+
+    private void changeTheme()
+    {
+        // Use the chosen theme
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if (useDarkTheme) {
+            setTheme(R.style.DarkTheme);
+        }
     }
 
     private void initUI() {
@@ -46,6 +59,26 @@ public class AboutActivity extends AppCompatActivity {
         {
             versionView.setText(APP_VERSION_RELEASE);
         }
+
+        Switch toggle = (Switch) findViewById(R.id.theme_switch);
+        toggle.setChecked(useDarkTheme);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                toggleTheme(isChecked);
+            }
+        });
+    }
+
+    private void toggleTheme(boolean darkTheme) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_DARK_THEME, darkTheme);
+        editor.apply();
+
+        Intent intent = getIntent();
+        finish();
+
+        startActivity(intent);
     }
 
     public void replayIntro(View v) {

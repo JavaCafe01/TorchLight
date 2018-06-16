@@ -1,6 +1,7 @@
 package com.gsnathan.torchlight;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,15 @@ import android.widget.Toast;
 import io.ghyeok.stickyswitch.widget.StickySwitch;
 import org.jetbrains.annotations.NotNull;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MainFragment extends Fragment {
 
     private boolean useDarkTheme;
     private StickySwitch stickySwitch;
     private int stickyColor;
     private int stickyBackColor;
+    private int theme;
     private CameraManager cameraManager;
     private FlashLight torch;
     private View view;
@@ -26,8 +30,10 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        changeTheme();
+
         // create ContextThemeWrapper from the original Activity Context with the custom theme
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), theme);
 
         // clone the inflater using the ContextThemeWrapper
         LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
@@ -38,6 +44,22 @@ public class MainFragment extends Fragment {
         initWidgets();
 
         return view;
+    }
+
+    private void changeTheme()
+    {
+        SharedPreferences pref = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+        useDarkTheme = pref.getBoolean("dark_theme", false);
+
+        if (useDarkTheme) {
+            theme = R.style.DarkTheme;
+            stickyColor = 0xFFFFFFFF;   //white
+            stickyBackColor = 0xFF000000;   //black
+        } else {
+            theme = R.style.AppTheme;
+            stickyColor = 0xFFCD4844;   //redtheme
+            stickyBackColor = 0xFFC0C0C0;   //silver
+        }
     }
 
     private void onStartUp() {

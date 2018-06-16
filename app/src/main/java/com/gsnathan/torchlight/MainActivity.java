@@ -1,7 +1,9 @@
 package com.gsnathan.torchlight;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.camera2.CameraManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,11 +27,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean useDarkTheme;
     private DachshundTabLayout tabLayout;
     private ViewPager viewPager;
+    private CameraManager cameraManager;
+    private FlashLight torch;
+    private int tabColor;
+    private int tabTextColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        changeTheme();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
@@ -41,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (DachshundTabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setBackgroundColor(getResources().getColor(R.color.redPrimary));
+        tabLayout.setBackgroundColor(tabColor);
 
         LineMoveIndicator indicator = new LineMoveIndicator(tabLayout);
         tabLayout.setAnimatedIndicator(indicator);
@@ -55,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
         RateThisApp.showRateDialogIfNeeded(this);
     }
 
+    private void changeTheme()
+    {
+        SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
+        useDarkTheme = pref.getBoolean("dark_theme", false);
+
+        if (useDarkTheme) {
+            setTheme(R.style.DarkTheme);
+            tabColor = getResources().getColor(R.color.black);
+        } else {
+            setTheme(R.style.AppTheme);
+            tabColor = getResources().getColor(R.color.redPrimary);
+        }
+    }
+
     private void onStartUp()
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -65,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(Utils.FIRST_INSTALL, false);
             editor.commit();
         }
+
+        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        torch = new FlashLight(cameraManager, getApplicationContext());
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -109,11 +135,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void flashSOS() {
+        final String sosMorse = "... --- ...";
+        torch.morseToFlash(sosMorse);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_about:
                 startActivity(Utils.navIntent(this, AboutActivity.class));
+                return true;
+            case R.id.action_sos:
+                flashSOS();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
