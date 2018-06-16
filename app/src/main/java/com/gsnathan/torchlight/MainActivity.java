@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.kekstudio.dachshundtablayout.DachshundTabLayout;
 import com.kekstudio.dachshundtablayout.indicators.LineMoveIndicator;
 import com.kobakei.ratethisapp.RateThisApp;
+import com.pavelsikun.seekbarpreference.SeekBarPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeTheme()
     {
-        SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
-        useDarkTheme = pref.getBoolean("dark_theme", false);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        useDarkTheme = pref.getBoolean("theme_pref", false);
 
         if (useDarkTheme) {
             setTheme(R.style.DarkTheme);
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void flashSOS() {
         final String sosMorse = "... --- ...";
+        Utils.updateSpeed(this);
         torch.morseToFlash(sosMorse);
     }
 
@@ -149,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_sos:
                 flashSOS();
                 return true;
+            case R.id.action_settings:
+                startActivity(Utils.navIntent(this, MyPreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

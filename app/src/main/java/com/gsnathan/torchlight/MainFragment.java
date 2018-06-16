@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -48,8 +49,8 @@ public class MainFragment extends Fragment {
 
     private void changeTheme()
     {
-        SharedPreferences pref = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
-        useDarkTheme = pref.getBoolean("dark_theme", false);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        useDarkTheme = pref.getBoolean("theme_pref", false);
 
         if (useDarkTheme) {
             theme = R.style.DarkTheme;

@@ -1,9 +1,12 @@
 package com.gsnathan.torchlight;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 /**
@@ -51,4 +54,10 @@ public class Utils {
         toast.show();
     }
 
+    public static void updateSpeed(Context context)
+    {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        double speed = (double)sp.getInt("speed_slider", 100);
+        FlashLight.speed = 1/(speed/100);
+    }
 }

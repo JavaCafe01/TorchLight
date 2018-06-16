@@ -6,8 +6,8 @@ android {
         applicationId "com.gsnathan.torchlight"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 3
-        versionName "2.1"
+        versionCode 4
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,6 +25,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -45,8 +46,14 @@ dependencies {
     implementation 'com.github.GwonHyeok:StickySwitch:0.0.15'
 
     //Rating Library
-    implementation  'io.github.kobakei:ratethisapp:1.2.0'
+    implementation 'io.github.kobakei:ratethisapp:1.2.0'
 
     //Tab Layout
     implementation 'com.github.Andy671:Dachshund-Tab-Layout:v0.3.3'
+
+    //Preferences Layout
+    implementation 'com.android.support:preference-v7:27.1.1'
+
+    //Slider Widget
+    implementation 'com.pavelsikun:material-seekbar-preference:2.3.0+'
 }

@@ -1,13 +1,11 @@
 package com.gsnathan.torchlight;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.franmontiel.attributionpresenter.AttributionPresenter;
@@ -20,10 +18,6 @@ import com.franmontiel.attributionpresenter.entities.License;
 
 public class AboutActivity extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "prefs";
-    private static final String PREF_DARK_THEME = "dark_theme";
-    public boolean useDarkTheme;
-
     TextView versionView;   //shows the version
     private final String APP_VERSION_RELEASE = "Version " + Utils.getAppVersion();   //contains Version + the version number
     private final String APP_VERSION_DEBUG = "Version " + Utils.getAppVersion() + "-debug";   //contains Version + the version number + debug
@@ -33,18 +27,23 @@ public class AboutActivity extends AppCompatActivity {
         changeTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar_about));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initUI();
     }
 
     private void changeTheme()
     {
         // Use the chosen theme
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean useDarkTheme = preferences.getBoolean("theme_pref", false);
 
         if (useDarkTheme) {
             setTheme(R.style.DarkTheme);
+        }
+        else
+        {
+            setTheme(R.style.AppTheme);
         }
     }
 
@@ -60,25 +59,6 @@ public class AboutActivity extends AppCompatActivity {
             versionView.setText(APP_VERSION_RELEASE);
         }
 
-        Switch toggle = (Switch) findViewById(R.id.theme_switch);
-        toggle.setChecked(useDarkTheme);
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-                toggleTheme(isChecked);
-            }
-        });
-    }
-
-    private void toggleTheme(boolean darkTheme) {
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(PREF_DARK_THEME, darkTheme);
-        editor.apply();
-
-        Intent intent = getIntent();
-        finish();
-
-        startActivity(intent);
     }
 
     public void replayIntro(View v) {
@@ -147,6 +127,20 @@ public class AboutActivity extends AppCompatActivity {
                                 .addCopyrightNotice("Copyright 2013-2017 Keisuke Kobayashi")
                                 .addLicense(License.APACHE)
                                 .setWebsite("https://github.com/kobakei/Android-RateThisApp")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("Dachshund Tab Layout")
+                                .addCopyrightNotice("Copyright 2017 Andrii")
+                                .addLicense(License.MIT)
+                                .setWebsite("https://github.com/Andy671/Dachshund-Tab-Layout")
+                                .build()
+                )
+                .addAttributions(
+                        new Attribution.Builder("MaterialSeekBarPreference")
+                                .addCopyrightNotice("Copyright MrBIMC")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/MrBIMC/MaterialSeekBarPreference")
                                 .build()
                 )
                 .build();

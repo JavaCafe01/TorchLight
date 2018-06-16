@@ -2,9 +2,11 @@ package com.gsnathan.torchlight;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ public class FlashLight {
     private boolean flashLightStatus;
     private CameraManager cameraManager;
     private Context context;
+    public static double speed;
 
     public FlashLight(CameraManager cameraManager, Context context) {
         this.cameraManager = cameraManager;
@@ -56,45 +59,45 @@ public class FlashLight {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOn();
-                        button.setTextColor( act.getColor(R.color.redAccent));
+                        button.setTextColor(act.getColor(R.color.redAccent));
                     }
-                }, (delay += 200));
+                }, (delay += (200 * speed)));
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOff();
-                        button.setTextColor( act.getColor(R.color.white));
+                        button.setTextColor(act.getColor(R.color.white));
                     }
-                }, (delay += 200));
+                }, (delay += (200 * speed)));
 
             } else if (morse.charAt(x) == '-') {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOn();
-                        button.setTextColor( act.getColor(R.color.redPrimaryDark));
+                        button.setTextColor(act.getColor(R.color.redPrimaryDark));
                     }
-                }, (delay += 500));
+                }, (delay += (500 * speed)));
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOff();
-                        button.setTextColor( act.getColor(R.color.white));
+                        button.setTextColor(act.getColor(R.color.white));
                     }
-                }, (delay += 500));
+                }, (delay += (500 * speed)));
 
             } else if (morse.charAt(x) == ' ') {
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
                     }
-                }, (delay += 300));
+                }, (delay += (300 * speed)));
 
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
                     }
-                }, (delay += 300));
+                }, (delay += (300 * speed)));
             }
         }
     }
@@ -110,40 +113,40 @@ public class FlashLight {
                     public void run() {
                         flashLightOn();
                     }
-                }, (delay += 200));
+                }, (delay += (200 * speed)));
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOff();
                     }
-                }, (delay += 200));
+                }, (delay += (200 * speed)));
 
             } else if (morse.charAt(x) == '-') {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOn();
                     }
-                }, (delay += 500));
+                }, (delay += (500 * speed)));
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         flashLightOff();
                     }
-                }, (delay += 500));
+                }, (delay += (500 * speed)));
 
             } else if (morse.charAt(x) == ' ') {
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
                     }
-                }, (delay += 300));
+                }, (delay += (300 * speed)));
 
 
                 handler.postDelayed(new Runnable() {
                     public void run() {
 
                     }
-                }, (delay += 300));
+                }, (delay += (300 * speed)));
             }
         }
     }
