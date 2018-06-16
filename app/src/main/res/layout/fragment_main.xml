@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.gsnathan.torchlight.MainFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center_vertical|center_horizontal"
+                  android:orientation="vertical">
+
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+                android:id="@+id/sticky_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:ss_animationDuration="250"
+                app:ss_iconPadding="18dp"
+                app:ss_iconSize="22dp"
+                app:ss_leftIcon="@drawable/lighton_icon"
+                app:ss_leftText="Off"
+                app:ss_rightIcon="@drawable/lightoff_icon"
+                app:ss_rightText="On"
+                app:ss_selectedTextSize="14sp"
+                app:ss_switchColor="@color/redPrimary"
+                app:ss_textSize="12sp"
+                app:ss_animationType="line"/>
+
+    </LinearLayout>
+
+</FrameLayout>

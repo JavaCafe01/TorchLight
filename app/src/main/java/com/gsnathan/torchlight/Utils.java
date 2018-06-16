@@ -11,9 +11,7 @@ import android.widget.Toast;
  */
 
 public class Utils {
-    public static String FIRST_INSTALL = "first-install1";
-    public static String FIRST_INSTALL2 = "first-install2";
-    public static String FIRST_INSTALL3 = "first-install3";
+    public static String FIRST_INSTALL = "first-install";
 
     public static String getAndroidVersion() {
         String release = Build.VERSION.RELEASE;
