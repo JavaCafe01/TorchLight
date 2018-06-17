@@ -34,7 +34,7 @@ public class FlashLight {
             flashLightStatus = true;
             //mark button
         } catch (Exception e) {
-            Utils.showToast("Cannot turn flashlight on", Toast.LENGTH_LONG, context);
+            Utils.showToast("Cannot turn flashlight on", Toast.LENGTH_SHORT, context);
         }
     }
 

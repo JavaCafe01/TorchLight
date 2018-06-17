@@ -10,4 +10,5 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000 </color>
     <color name="silver">#C0C0C0</color>
+    <color name="grey">#303030</color>
 </resources>
