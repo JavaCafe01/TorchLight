@@ -61,12 +61,16 @@
                             android:orientation="horizontal"
                             tools:ignore="PrivateResource">
 
-                        <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_margin="15dp"
-                                android:contentDescription="@string/app_name"
-                                android:src="@mipmap/ic_launcher"/>
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/app_image"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_margin="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@mipmap/ic_launcher"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="#FF000000"/>
 
                         <TextView
                                 android:layout_width="match_parent"
@@ -288,12 +292,16 @@
                                 android:orientation="horizontal"
                                 tools:ignore="PrivateResource">
 
-                            <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_margin="15dp"
-                                    android:contentDescription="@string/author"
-                                    android:src="@drawable/myprofile"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/profile_image"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_margin="15dp"
+                                android:layout_marginEnd="5dp"
+                                android:src="@drawable/myprofile"
+                                app:civ_border_width="2dp"
+                                app:civ_border_color="#FF000000"/>
 
                             <TextView
                                     android:layout_width="match_parent"

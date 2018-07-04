@@ -143,6 +143,13 @@ public class AboutActivity extends AppCompatActivity {
                                 .setWebsite("https://github.com/MrBIMC/MaterialSeekBarPreference")
                                 .build()
                 )
+                .addAttributions(
+                        new Attribution.Builder("CircleImageView")
+                                .addCopyrightNotice("Copyright Henning Dodenhof")
+                                .addLicense(License.APACHE)
+                                .setWebsite("https://github.com/hdodenhof/CircleImageView")
+                                .build()
+                )
                 .build();
 
         //show license dialogue
@@ -150,7 +157,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void emailDev(View v) {
-        startActivity(Utils.emailIntent("gokulswaminathan@outlook.com", "Android-Scouter", APP_VERSION_RELEASE, "Send email..."));
+        startActivity(Utils.emailIntent("gokulswamilive@gmail.com", "TorchLight", APP_VERSION_RELEASE, "Send email..."));
     }
 
     public void navToGit(View v) {
